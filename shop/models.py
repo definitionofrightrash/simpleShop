@@ -20,8 +20,7 @@ class Product(models.Model):
     QtyInStock = models.IntegerField(default=0)
     BuyPrice = models.IntegerField()
     Description = models.CharField(max_length=500, null=True, blank=True)
-    #Image = models.CharField(max_length=200, null=True, blank=True)
-    Image = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True, blank=True)
+    Image = models.ImageField(upload_to='static/uploads/%Y/%m/%d/', null=True, blank=True)
     AddedDate = models.DateTimeField(default=timezone.now())
     LastEdit = models.DateTimeField(default=timezone.now())
 
@@ -43,6 +42,7 @@ class Customer(models.Model):
     Name = models.CharField(max_length=225)
     Email = models.EmailField(max_length=225, unique=True)
     Password = models.CharField(max_length=225)
+    Credit = models.IntegerField(default=0)
 
 '''
 class Tag(models.Model):
@@ -53,5 +53,5 @@ class Address(models.Model):
 
 class Order(models.Model):
 
-class Order_Product(models.Model):
+class Order_Item(models.Model):
 '''

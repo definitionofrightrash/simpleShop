@@ -7,8 +7,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Login | E-Shopper</title>
-     %}" 
-    "{% static 
     <link href= "{% static "css/bootstrap.min.css"   %}" rel="stylesheet">
     <link href= "{% static "css/font-awesome.min.css"   %}" rel="stylesheet">
     <link href= "{% static "css/prettyPhoto.css"   %}" rel="stylesheet">
@@ -28,7 +26,6 @@
 </head><!--/head-->
 
 <body>
-	{% load static %}
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -153,9 +150,10 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="#">
-							<input type="text" placeholder="Name" />
-							<input type="email" placeholder="Email Address" />
+						<form action="{% url 'shop:login' %}" method = "post">
+						{% csrf_token %}	
+							<input type="email" placeholder="Email Address" name="email"/>	
+							<input type="text" placeholder="Password" name="password"/>
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
