@@ -90,8 +90,8 @@
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="loginPage"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{% url 'shop:cart' CustomerID=customer.id %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
 					</div>
@@ -119,8 +119,8 @@
                                         <li><a href="shop.html" class="active">Products</a></li>
 										<li><a href="product-details.html">Product Details</a></li> 
 										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="loginPage">Login</a></li> 
+										<li><a href="{% url 'shop:cart' CustomerID=customer.id %}">Cart</a></li> 
+										<li><a href="login.html">Login</a></li> 
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -263,7 +263,8 @@
 							</div>
 						</div><!--/category-productsr-->
 					
-						<div class="brands_products"><!--brands_products-->
+						<!--brands_products-->
+						<!-- <div class="brands_products">
 							<h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
@@ -276,7 +277,8 @@
 									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
 								</ul>
 							</div>
-						</div><!--/brands_products-->
+						</div> -->
+						<!--/brands_products-->
 						
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
@@ -287,7 +289,7 @@
 						</div><!--/price-range-->
 						
 						<div class="shipping text-center"><!--shipping-->
-							<img src="images/home/shipping.jpg" alt="" />
+							<img src="{% static "images/home/shipping.jpg" %}" alt="" />
 						</div><!--/shipping-->
 						
 					</div>
@@ -296,20 +298,20 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						{% for Product in Products %}
+						{% for product in products %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src={{Product.Image.url}} alt="" />
-										<h2>${% widthratio Product.BuyPrice 100 1 %}</h2>
-										<p>{{Product.Name}}</p>
+										<img src={{product.Image.url}} alt="" />
+										<h2>${% widthratio product.BuyPrice 100 1 %}</h2>
+										<p>{{product.Name}}</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 									<div class="product-overlay">
 										<div class="overlay-content">
-											<h2>${{Product.BuyPrice}}</h2>
-											<p>{{Product.Name}}</p>
+											<h2>${% widthratio product.BuyPrice 100 1 %}</h2>
+											<p>{{product.Name}}</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 									</div>
@@ -378,7 +380,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe1.png" alt="" />
+										<img src="{% static "images/home/iframe1.png" %}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -393,7 +395,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe2.png" alt="" />
+										<img src="{% static "images/home/iframe2.png" %}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -408,7 +410,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe3.png" alt="" />
+										<img src="{% static "images/home/iframe3.png" %}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -423,7 +425,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="images/home/iframe4.png" alt="" />
+										<img src="{% static "images/home/iframe4.png" %}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -436,7 +438,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="address">
-							<img src="images/home/map.png" alt="" />
+							<img src="{% static "images/home/map.png" %}" alt="" />
 							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
 						</div>
 					</div>
@@ -523,11 +525,11 @@
 	
 
   
-    <script src="js/jquery.js"></script>
-	<script src="js/price-range.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{% static "js/jquery.js" %}"></script>
+	<script src="{% static "js/price-range.js" %}"></script>
+    <script src="{% static "js/jquery.scrollUp.min.js" %}"></script>
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/jquery.prettyPhoto.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
 </body>
 </html>

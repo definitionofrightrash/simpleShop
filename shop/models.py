@@ -21,28 +21,23 @@ class Product(models.Model):
     BuyPrice = models.IntegerField()
     Description = models.CharField(max_length=500, null=True, blank=True)
     Image = models.ImageField(upload_to='static/uploads/%Y/%m/%d/', null=True, blank=True)
-    AddedDate = models.DateTimeField(default=timezone.now())
-    LastEdit = models.DateTimeField(default=timezone.now())
+    LastEdited = models.DateTimeField(default=timezone.now())
+    Discount = models.IntegerField(default=0)
+    Rating = models.FloatField(default=0)
 
     def __str__(self):
         return str(self.Code) + " " + self.Name + " " + str(self.BuyPrice)
-
-    # def __init__(self, Name, BuyPrice, QtyInStock=0, Description='', Image=None):
-    #     models.Model.__init__(self)
-    #     self.Name = Name
-    #     self.QtyInStock = QtyInStock
-    #     self.BuyPrice = BuyPrice
-    #     self.Description = Description
-    #     if Image:
-    #         self.Image = Image
-    #     self.AddedDate = timezone.now()
-    #     self.LastEdit = timezone.now()
-        
+     
 class Customer(models.Model):
     Name = models.CharField(max_length=225)
     Email = models.EmailField(max_length=225, unique=True)
     Password = models.CharField(max_length=225)
     Credit = models.IntegerField(default=0)
+
+class Cart_Item(models.Model):
+    ProductCode = models.ForeignKey(Product, on_delete=models.CASCADE)
+    CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=1)
 
 '''
 class Tag(models.Model):

@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from .models import Customer,Product
+
+from .models import Customer, Product, Cart_Item
 import hashlib
 def index(request):
-    p = Product.objects.all()
-    return render(request,'Eshopper/shop.html',{'Products':p})
-def loginPage(request):
-    return render(request, 'Eshopper/login.html',{})
+    return render(request,'Eshopper/login.html',{})
 def register(request):
     username = request.POST['Name']
     email = request.POST['Email Address']
@@ -16,7 +14,7 @@ def register(request):
         c = Customer(Name = username, Email = email, Password = hashlib.md5(password.encode()).digest())
         c.save()
         p = Product.objects.all()
-        return render(request,'Eshopper/shop.html',{'Products':p})
+        return render(request,'Eshopper/shop.html',{'customer':c,'products':p})
  
 def login(request):
     email = request.POST['email']
@@ -24,9 +22,10 @@ def login(request):
     try:
         c = Customer.objects.get(Email = email , Password = hashlib.md5(password.encode()).digest())          
         p = Product.objects.all() 
-        return render(request,'Eshopper/shop.html',{'Products':p})
+        return render(request,'Eshopper/shop.html',{'customer':c, 'products':p})
     except Customer.DoesNotExist:
         return render(request, 'Eshopper/login.html',{})
 
-
-
+def cart(request, CustomerID):
+    cart_items = Cart_Item.objects.filter(CustomerID = CustomerID).select_related('ProductCode')
+    return render(request, 'Eshopper/cart.html', {'cart_items':cart_items})
